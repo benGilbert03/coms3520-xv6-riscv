@@ -23,3 +23,4 @@
 #define SYS_sync   22
 #define SYS_startLogging 23
 #define SYS_stopLogging  24
+#define SYS_nice   25

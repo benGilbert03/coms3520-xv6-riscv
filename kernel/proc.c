@@ -123,6 +123,7 @@ allocproc(void)
 
 found:
   p->pid = allocpid();
+  p->nice = 0;
   p->state = USED;
 
   // Allocate a trapframe page.
@@ -163,6 +164,7 @@ freeproc(struct proc *p)
   p->pagetable = 0;
   p->sz = 0;
   p->pid = 0;
+  p->nice = 0;
   p->name[0] = 0;
   p->chan = 0;
   p->killed = 0;
@@ -617,6 +619,43 @@ kkill(int pid)
     release(&p->lock);
   }
   return -1;
+}
+
+// Add inc to the nice value of the process with the given pid,
+// clamped to [NICE_MIN, NICE_MAX].
+// Returns the new nice value, or 0 if pid is not a live process.
+int
+knice(int pid, int inc)
+{
+  struct proc *p;
+  int n;
+
+  if (pid <= 0)
+    return 0;
+
+  // Limit inc to the widest useful change so p->nice + inc can't overflow.
+  if (inc < NICE_MIN - NICE_MAX)
+    inc = NICE_MIN - NICE_MAX;
+  if (inc > NICE_MAX - NICE_MIN)
+    inc = NICE_MAX - NICE_MIN;
+
+  for (p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+    if (p->pid == pid && p->state != UNUSED && p->state != ZOMBIE) {
+      n = p->nice + inc;
+      if (n < NICE_MIN)
+        n = NICE_MIN;
+      if (n > NICE_MAX)
+        n = NICE_MAX;
+      p->nice = n;
+      release(&p->lock);
+      if (logging)
+        printk("nice set to %d for %d\n", n, pid);
+      return n;
+    }
+    release(&p->lock);
+  }
+  return 0;
 }
 
 void

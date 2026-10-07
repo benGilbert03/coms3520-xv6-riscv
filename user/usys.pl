@@ -45,3 +45,4 @@ entry("uptime");
 entry("sync");
 entry("startLogging");
 entry("stopLogging");
+entry("nice");

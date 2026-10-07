@@ -105,6 +105,7 @@ extern uint64 sys_close(void);
 extern uint64 sys_sync(void);
 extern uint64 sys_startLogging(void);
 extern uint64 sys_stopLogging(void);
+extern uint64 sys_nice(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -134,6 +135,7 @@ static uint64 (*syscalls[])(void) = {
   [SYS_sync]    = sys_sync,
   [SYS_startLogging] = sys_startLogging,
   [SYS_stopLogging]  = sys_stopLogging,
+  [SYS_nice]    = sys_nice,
   // clang-format on
 };
 

@@ -153,6 +153,7 @@ UPROGS=\
 	$U/_hello\
 	$U/_about\
 	$U/_logtest\
+	$U/_nicetest\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)

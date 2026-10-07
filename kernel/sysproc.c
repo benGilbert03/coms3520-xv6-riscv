@@ -98,6 +98,16 @@ sys_kill(void)
   return kkill(pid);
 }
 
+uint64
+sys_nice(void)
+{
+  int pid, inc;
+
+  argint(0, &pid);
+  argint(1, &inc);
+  return knice(pid, inc);
+}
+
 // return how many clock tick interrupts have occurred
 // since start.
 uint64
