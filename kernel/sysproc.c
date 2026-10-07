@@ -110,3 +110,22 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// 1 while kernel logging is enabled.
+int logging = 0;
+
+uint64
+sys_startLogging(void)
+{
+  logging = 1;
+  printk("Logging Started\n");
+  return 0;
+}
+
+uint64
+sys_stopLogging(void)
+{
+  printk("Logging Stopped\n");
+  logging = 0;
+  return 0;
+}
