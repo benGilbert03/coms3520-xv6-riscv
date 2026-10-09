@@ -1,8 +1,8 @@
 #include "kernel/types.h"
 #include "user/user.h"
 
-// Iterations of CPU-bound work each child does in priority mode;
-// enough to span several timer ticks.
+// Iterations of bounded CPU-bound work each child does;
+// enough to span a few timer ticks.
 #define WORK 100000000
 
 // Child side of priority mode: tell the parent we're ready, block until
@@ -108,10 +108,16 @@ main(int argc, char *argv[])
   if (argc > 1 && strcmp(argv[1], "priority") == 0)
     priority();
 
-  printf("logtest: calling startLogging\n");
   startLogging();
-  printf("logtest: calling stopLogging\n");
+  if (fork() == 0) {
+    volatile uint64 x = 0;
+
+    nice(getpid(), 10);
+    for (uint64 i = 0; i < WORK; i++)
+      x += i;
+    exit(0);
+  }
+  wait(0);
   stopLogging();
-  printf("logtest: done\n");
   exit(0);
 }

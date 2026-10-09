@@ -435,6 +435,7 @@ scheduler(void)
   struct cpu *c = mycpu();
   int i, bestnice;
   int last = NPROC - 1; // index of the slot this CPU ran most recently
+  uint now = 0;         // tick count for the dispatch log message
 
   c->proc = 0;
   for (;;) {
@@ -468,6 +469,14 @@ scheduler(void)
       continue;
     }
 
+    // Read ticks before taking best->lock: clockintr() holds tickslock
+    // while wakeup() takes proc locks, so never take them the other way.
+    if (logging) {
+      acquire(&tickslock);
+      now = ticks;
+      release(&tickslock);
+    }
+
     acquire(&best->lock);
     // Another CPU may have changed it since the scan; if so, rescan.
     if (best->state == RUNNABLE) {
@@ -476,6 +485,8 @@ scheduler(void)
       // before jumping back to us.
       best->state = RUNNING;
       c->proc = best;
+      if (logging)
+        printk("running %d at %d\n", best->pid, now);
       swtch(&c->context, &best->context);
 
       // Don't re-enable interrupts on release.
