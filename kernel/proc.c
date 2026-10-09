@@ -423,15 +423,18 @@ kwait(uint64 addr)
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
 // Scheduler never returns.  It loops, doing:
-//  - choose a process to run.
+//  - choose the RUNNABLE process with the lowest nice value;
+//    equal-nice processes take turns.
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
 void
 scheduler(void)
 {
-  struct proc *p;
+  struct proc *p, *best;
   struct cpu *c = mycpu();
+  int i, bestnice;
+  int last = NPROC - 1; // index of the slot this CPU ran most recently
 
   c->proc = 0;
   for (;;) {
@@ -443,31 +446,47 @@ scheduler(void)
     intr_on();
     intr_off();
 
-    int found = 0;
-    for (p = proc; p < &proc[NPROC]; p++) {
+    // Look at every slot, starting just after the last one run,
+    // and remember the RUNNABLE process with the lowest nice value.
+    // Strict < keeps the first one found among equals, so
+    // equal-nice processes take turns.
+    best = 0;
+    bestnice = 0;
+    for (i = 1; i <= NPROC; i++) {
+      p = &proc[(last + i) % NPROC];
       acquire(&p->lock);
-      if (p->state == RUNNABLE) {
-        // Switch to chosen process.  It is the process's job
-        // to release its lock and then reacquire it
-        // before jumping back to us.
-        p->state = RUNNING;
-        c->proc = p;
-        swtch(&c->context, &p->context);
-
-        // Don't re-enable interrupts on release.
-        mycpu()->intena = 0;
-
-        // Process is done running for now.
-        // It should have changed its p->state before coming back.
-        c->proc = 0;
-        found = 1;
+      if (p->state == RUNNABLE && (best == 0 || p->nice < bestnice)) {
+        best = p;
+        bestnice = p->nice;
       }
       release(&p->lock);
     }
-    if (found == 0) {
+
+    if (best == 0) {
       // nothing to run; stop running on this core until an interrupt.
       asm volatile("wfi");
+      continue;
     }
+
+    acquire(&best->lock);
+    // Another CPU may have changed it since the scan; if so, rescan.
+    if (best->state == RUNNABLE) {
+      // Switch to chosen process.  It is the process's job
+      // to release its lock and then reacquire it
+      // before jumping back to us.
+      best->state = RUNNING;
+      c->proc = best;
+      swtch(&c->context, &best->context);
+
+      // Don't re-enable interrupts on release.
+      mycpu()->intena = 0;
+
+      // Process is done running for now.
+      // It should have changed its p->state before coming back.
+      c->proc = 0;
+      last = best - proc;
+    }
+    release(&best->lock);
   }
 }
 
