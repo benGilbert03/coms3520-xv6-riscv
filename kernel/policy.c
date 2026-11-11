@@ -31,6 +31,12 @@
 //  3  SCHED_MLFQ  1C MLFQ: 3 queues, start queue from nice, allotment, 60-tick boost
 //  4  SCHED_STRIDE stride scheduling, tickets = nice weight, 10-tick quantum
 //  6  SCHED_RR5   round robin, 5-tick (50 ms) quantum
+// Stride tuning variants (Checkpoint 4), each one change from ID 4:
+// 10  SCHED_STRIDE_Q2      stride with a 2-tick quantum (H1)
+// 11  SCHED_STRIDE_PREEMPT stride, preempt when a RUNNABLE job has a lower pass (H2)
+// 12  SCHED_STRIDE_CREDIT  stride, waking job placed one nice-0 tick below the min pass (H3)
+// 13  SCHED_STRIDE_HALF    stride, tickets from nice/2 (compressed weights) (H4)
+// 14  SCHED_STRIDE_SCALEQ  stride, quantum scaled by weight, 1..20 ticks (H5)
 
 #include "types.h"
 #include "param.h"
@@ -46,6 +52,11 @@
 #define SCHED_MLFQ   3 // multi-level feedback queue (Section 3.5)
 #define SCHED_STRIDE 4 // stride scheduling, tickets = nice weight (Section 3.6)
 #define SCHED_RR5    6 // round robin, 5-tick (50 ms) quantum
+#define SCHED_STRIDE_Q2      10 // H1: stride, 2-tick quantum
+#define SCHED_STRIDE_PREEMPT 11 // H2: stride, preempt on a lower pass
+#define SCHED_STRIDE_CREDIT  12 // H3: stride, bounded credit for sleepers
+#define SCHED_STRIDE_HALF    13 // H4: stride, tickets from nice/2
+#define SCHED_STRIDE_SCALEQ  14 // H5: stride, quantum scaled by weight
 
 // Linux CFS weights for nice -20 .. 19, indexed by nice + 20
 // (nice 0 has weight 1024). This is the same table user/wl.c uses
@@ -77,6 +88,23 @@ static int last_at[MLFQ_LEVELS];       // per-level round-robin position
 // holds the pass value.
 #define STRIDE1 (1 << 24)
 
+// Stride settings, set by policy_init() so each tuning variant is just
+// a new case there. ID 4 uses the defaults from stride_defaults().
+static int stride_preempt;    // H2: preempt when a RUNNABLE job has a lower pass
+static uint64 wake_credit;   // H3: pass a waking job may sit below the min
+static int nice_half;        // H4: tickets from nice/2 instead of nice
+static int scale_quantum;    // H5: quantum scaled by the job's weight
+
+static void
+stride_defaults(void)
+{
+  quantum = 10;
+  stride_preempt = 0;
+  wake_credit = 0;
+  nice_half = 0;
+  scale_quantum = 0;
+}
+
 // Called by set_scheduler(id), and again when a workload starts.
 // Set up global state for policy id.
 // Return 0 if id is a known policy, -1 otherwise.
@@ -95,7 +123,27 @@ policy_init(int id)
     quantum = 5;
     break;
   case SCHED_STRIDE:
-    quantum = 10;
+    stride_defaults();
+    break;
+  case SCHED_STRIDE_Q2:
+    stride_defaults();
+    quantum = 2;
+    break;
+  case SCHED_STRIDE_PREEMPT:
+    stride_defaults();
+    stride_preempt = 1;
+    break;
+  case SCHED_STRIDE_CREDIT:
+    stride_defaults();
+    wake_credit = STRIDE1 / 1024; // one tick of pass at nice 0
+    break;
+  case SCHED_STRIDE_HALF:
+    stride_defaults();
+    nice_half = 1;
+    break;
+  case SCHED_STRIDE_SCALEQ:
+    stride_defaults();
+    scale_quantum = 1;
     break;
   case SCHED_MLFQ:
     mlfq_quantum[0] = 15; mlfq_allot[0] = 0; // Q0: no further demotion
@@ -232,12 +280,44 @@ pick_mlfq(void)
   return 0;
 }
 
+// Is policy id the stride scheduler or one of its tuning variants?
+static int
+is_stride(int id)
+{
+  return id == SCHED_STRIDE ||
+         (id >= SCHED_STRIDE_Q2 && id <= SCHED_STRIDE_SCALEQ);
+}
+
+// Stride: p's tickets, its nice weight. H4 halves the nice value first
+// (C division rounds toward 0), which compresses the weight ratios.
+static int
+stride_weight(struct proc *p)
+{
+  int n = nice_half ? p->nice / 2 : p->nice;
+  return nice_weight[n + 20];
+}
+
 // Stride: the pass added for each tick p runs. Computed from the
 // current nice value, so a nice change takes effect at the next tick.
 static uint64
 stride_of(struct proc *p)
 {
-  return STRIDE1 / nice_weight[p->nice + 20];
+  return STRIDE1 / stride_weight(p);
+}
+
+// Stride: p's quantum. H5 scales it by weight, so each full quantum
+// adds about the same pass: 10 ticks at nice 0, clamped to 1..20.
+static int
+stride_quantum(struct proc *p)
+{
+  if (!scale_quantum)
+    return quantum;
+  int q = 10 * stride_weight(p) / 1024;
+  if (q < 1)
+    q = 1;
+  if (q > 20)
+    q = 20;
+  return q;
 }
 
 // Stride selection: the RUNNABLE process with the lowest pass. The scan
@@ -267,9 +347,9 @@ policy_pick_next_proc(void)
     return pick_prio();
   case SCHED_MLFQ:
     return pick_mlfq();
-  case SCHED_STRIDE:
-    return pick_stride();
   default:
+    if (is_stride(sched_current))
+      return pick_stride();
     return pick_rr();
   }
 }
@@ -312,6 +392,23 @@ tick_mlfq(struct proc *p)
   return 0;
 }
 
+// Stride tick: the pass grows by the stride for each tick run. Preempt
+// at the end of the quantum, or (H2) as soon as a RUNNABLE job has a
+// lower pass than p.
+static int
+tick_stride(struct proc *p)
+{
+  p->vrt += stride_of(p);
+  p->qticks++;
+  if (p->qticks >= stride_quantum(p))
+    return 1;
+  if (stride_preempt)
+    for (struct proc *q = proc; q < &proc[NPROC]; q++)
+      if (q->state == RUNNABLE && q->vrt < p->vrt)
+        return 1;
+  return 0;
+}
+
 // Called on every timer tick while p is running.
 // Return 1 to preempt p, or 0 to let it keep running.
 // A process is charged only for ticks that arrive while it is running.
@@ -325,8 +422,8 @@ policy_tick(struct proc *p)
 {
   if (sched_current == SCHED_MLFQ)
     return tick_mlfq(p);
-  if (sched_current == SCHED_STRIDE)
-    p->vrt += stride_of(p); // pass grows by the stride for each tick run
+  if (is_stride(sched_current))
+    return tick_stride(p);
   p->qticks++;
   return p->qticks >= quantum;
 }
@@ -343,11 +440,13 @@ policy_tick(struct proc *p)
 // the time it slept to take over the CPU. It never moves backward, and
 // if no other process is ready it keeps its own pass. A process made
 // by fork() becomes RUNNABLE without coming through here, so it starts
-// at pass 0; workload jobs always arrive through here.
+// at pass 0; workload jobs always arrive through here. H3 lets a waking
+// job sit up to wake_credit below the minimum, a bounded bonus for
+// sleeping that cannot be saved up.
 void
 policy_wakeup(struct proc *p)
 {
-  if (sched_current != SCHED_STRIDE)
+  if (!is_stride(sched_current))
     return;
 
   struct proc *min = 0;
@@ -357,8 +456,11 @@ policy_wakeup(struct proc *p)
     if (min == 0 || q->vrt < min->vrt)
       min = q;
   }
-  if (min && min->vrt > p->vrt)
-    p->vrt = min->vrt;
+  if (min == 0)
+    return;
+  uint64 floor = min->vrt > wake_credit ? min->vrt - wake_credit : 0;
+  if (floor > p->vrt)
+    p->vrt = floor;
 }
 
 // Called whenever p's nice value changes.
