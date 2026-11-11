@@ -166,6 +166,7 @@ UPROGS=\
 	$U/_sync\
 	$U/_wl\
 	$U/_logwl\
+	$U/_mlfqtest\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
