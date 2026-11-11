@@ -1,0 +1,199 @@
+/bin/sh: 1: bc: not found
+/bin/sh: 1: [: Illegal number: 
+
+xv6 kernel is booting
+
+init: starting sh
+$ logwl 3 4
+Logging Started
+running 4 at 16
+running 4 at 16
+running 4 at 17
+running 4 at 17
+running 4 at 17
+running 4 at 18
+running 4 at 18
+running 4 at 18
+running 4 at 18
+nice set to -10 for 5
+nice set to -5 for 6
+nice set to 5 for 7
+nice set to 11 for 8
+nice set to -10 for 9
+running 5 at 22
+running 6 at 32
+running 7 at 42
+running 8 at 52
+running 9 at 62
+running 5 at 64
+running 5 at 74
+running 9 at 84
+running 5 at 86
+running 6 at 96
+running 9 at 106
+running 5 at 108
+running 5 at 118
+running 9 at 128
+running 5 at 130
+running 6 at 140
+running 9 at 150
+running 5 at 152
+running 5 at 162
+running 9 at 172
+running 5 at 174
+running 6 at 184
+running 9 at 194
+running 5 at 196
+running 5 at 206
+running 9 at 216
+running 5 at 218
+running 6 at 228
+running 9 at 238
+running 5 at 240
+running 5 at 250
+running 9 at 260
+running 5 at 262
+running 6 at 272
+running 9 at 282
+running 5 at 284
+running 5 at 294
+running 9 at 304
+running 5 at 306
+running 6 at 316
+running 9 at 326
+running 5 at 328
+running 5 at 338
+running 9 at 348
+running 5 at 350
+running 6 at 360
+running 9 at 370
+running 5 at 372
+running 5 at 382
+running 9 at 392
+running 5 at 394
+running 6 at 404
+running 9 at 414
+running 5 at 416
+running 5 at 426
+running 9 at 436
+running 5 at 438
+running 6 at 448
+running 9 at 458
+running 5 at 460
+running 7 at 470
+running 9 at 480
+running 5 at 482
+running 5 at 492
+running 9 at 497
+running 6 at 499
+running 6 at 509
+running 9 at 519
+running 6 at 521
+running 6 at 531
+running 9 at 541
+running 6 at 543
+running 6 at 553
+running 9 at 563
+running 6 at 565
+running 6 at 575
+running 9 at 585
+running 6 at 587
+running 7 at 597
+running 9 at 607
+running 6 at 609
+running 6 at 619
+running 9 at 629
+running 6 at 631
+running 6 at 641
+running 9 at 651
+running 6 at 653
+running 6 at 663
+running 9 at 673
+running 6 at 675
+running 6 at 685
+running 9 at 695
+running 6 at 697
+running 7 at 707
+running 6 at 717
+running 6 at 727
+running 6 at 737
+running 8 at 742
+running 7 at 752
+running 7 at 762
+running 7 at 772
+running 7 at 782
+running 8 at 792
+running 7 at 802
+running 7 at 812
+running 7 at 822
+running 7 at 832
+running 8 at 842
+running 7 at 852
+running 7 at 862
+running 7 at 872
+running 7 at 882
+running 8 at 892
+running 7 at 902
+running 7 at 912
+running 7 at 922
+running 7 at 932
+running 8 at 942
+running 7 at 952
+running 7 at 962
+running 7 at 972
+running 7 at 982
+running 8 at 992
+running 7 at 1002
+running 7 at 1012
+running 7 at 1022
+running 8 at 1032
+running 7 at 1042
+running 7 at 1052
+running 7 at 1062
+running 7 at 1072
+running 8 at 1075
+running 8 at 1085
+running 8 at 1095
+running 8 at 1105
+running 8 at 1115
+running 8 at 1125
+running 8 at 1135
+running 8 at 1145
+running 8 at 1155
+running 8 at 1165
+running 8 at 1175
+running 8 at 1185
+running 8 at 1195
+running 8 at 1205
+running 8 at 1215
+running 8 at 1225
+running 8 at 1235
+running 8 at 1245
+running 8 at 1255
+running 8 at 1265
+running 8 at 1275
+running 8 at 1285
+running 8 at 1295
+workload 3, scheduler 4, switch cost 20 units
+job  pid nice  kind arrive first  done  turn   cpu    ovh   resp  rmax
+  0    5  -10 batch      0     0   475   475   300   4.20   0.00     0
+CSV,job,0,-10,1,0,0,475,475,30000,420,1,0,0
+  1    6  running 4 at 1307
+ -5 batch      0    10   720   720   300   4.20  10.00    10
+CSV,job,1,-5,1,0,10,720,720,30000,420,1,10,10
+  2    7    5 batch      0    20  1053  1053   300   2.20  20.00    20
+CSV,job,2,5,1,0,20,1053,1053,30000,220,1,20,20
+  3    8   11 batch      running 4 at 1317
+0    30  1275  1275   300   1.80  30.00    30
+CSV,job,3,11,1,0,30,1275,1275,30000,180,1,30,30
+  4    9  -10 inter     13    40   675   662    30   6.00   9.43    27
+CSV,job,4,-10,0,13,40,675,662,3000,600,30,283,27
+turnaround (mean, batch jobs): 880.running 4 at 1327
+75 ticks
+response (mean, all CPU bursts): 10.08 ticks, worst 30
+fairness (nice-weighted Jain): 0.756 over ticks 0-475
+switch overhead: 1.44% of busy time; total 1275 ticks, idle 0, other 0
+CSV,summary,3,4,20,88075,1008,30,756,144,1275,0
+running 3 at 1336
+Logging Stopped
+$ 

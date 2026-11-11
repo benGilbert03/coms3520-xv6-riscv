@@ -1,0 +1,155 @@
+/bin/sh: 1: bc: not found
+/bin/sh: 1: [: Illegal number: 
+
+xv6 kernel is booting
+
+init: starting sh
+$ logwl 1 4
+Logging Started
+running 4 at 21
+running 4 at 21
+running 4 at 22
+running 4 at 22
+running 4 at 22
+running 4 at 22
+running 4 at 22
+running 4 at 22
+running 4 at 22
+nice set to 0 for 5
+nice set to 0 for 6
+nice set to 0 for 7
+nice set to 0 for 8
+nice set to 0 for 9
+running 5 at 26
+running 5 at 36
+running 6 at 46
+running 7 at 56
+running 8 at 66
+running 9 at 76
+running 5 at 86
+running 6 at 96
+running 7 at 106
+running 8 at 116
+running 9 at 126
+running 5 at 136
+running 6 at 146
+running 7 at 156
+running 8 at 166
+running 9 at 176
+running 5 at 186
+running 6 at 196
+running 7 at 206
+running 8 at 216
+running 9 at 226
+running 5 at 236
+running 6 at 246
+running 7 at 256
+running 8 at 266
+running 9 at 276
+running 5 at 286
+running 6 at 296
+running 7 at 306
+running 8 at 316
+running 9 at 326
+running 5 at 328
+running 6 at 338
+running 7 at 348
+running 8 at 358
+running 5 at 368
+running 6 at 378
+running 7 at 388
+running 8 at 398
+running 5 at 408
+running 6 at 418
+running 7 at 428
+running 8 at 438
+running 5 at 448
+running 6 at 458
+running 7 at 468
+running 8 at 478
+running 5 at 488
+running 6 at 498
+running 7 at 508
+running 8 at 518
+running 5 at 521
+running 6 at 531
+running 7 at 541
+running 5 at 551
+running 6 at 561
+running 7 at 571
+running 5 at 581
+running 6 at 591
+running 7 at 601
+running 5 at 611
+running 6 at 621
+running 7 at 631
+running 5 at 641
+running 6 at 651
+running 7 at 661
+running 5 at 671
+running 6 at 681
+running 7 at 691
+running 5 at 701
+running 6 at 711
+running 7 at 721
+running 5 at 731
+running 6 at 741
+running 7 at 751
+running 5 at 761
+running 6 at 771
+running 7 at 781
+running 5 at 791
+running 6 at 801
+running 7 at 811
+running 5 at 816
+running 6 at 826
+running 5 at 836
+running 6 at 846
+running 5 at 856
+running 6 at 866
+running 5 at 876
+running 6 at 886
+running 5 at 896
+running 6 at 906
+running 5 at 916
+running 6 at 926
+running 5 at 936
+running 6 at 946
+running 5 at 956
+running 6 at 966
+running 5 at 976
+running 6 at 986
+running 5 at 996
+running 6 at 1006
+running 5 at 1013
+running 5 at 1023
+running 5 at 1033
+running 5 at 1043
+running 5 at 1053
+running 5 at 1063
+running 5 at 1073
+running 5 at 1083
+running 5 at 1093
+workload 1, scheduler 4, switch cost 20 units
+job  pid nice  kind arrive first  done  turn   cpu    ovh   resp  rmax
+  0    5    0 batch      0     0  1074  1074   400   6.40   0.00     0
+CSV,job,0,0,1,0,0,1074,1074,40000,640,1,0,0
+  1    6  running 4 at 1110
+  0 batch     11    20   987   976   300   6.20   9.00     9
+CSV,job,1,0,1,11,20,987,976,30000,620,1,9,9
+  2    7    0 batch     29    30   790   761   200   4.20   1.00     1
+CSV,job,2,0,1,29,30,790,761,20000,420,1,1,1
+  3    8    0 batch     31    running 4 at 1120
+40   495   464   100   2.20   9.00     9
+CSV,job,3,0,1,31,40,495,464,10000,220,1,9,9
+  4    9    0 batch     43    50   302   259    50   1.20   7.00     7
+CSV,job,4,0,1,43,50,302,259,5000,120,1,7,7
+turnaround (mean, batch jobs): 706.80 ticks
+responrunning 4 at 1130
+se (mean, all CPU bursts): 5.20 ticks, worst 9
+fairness (nice-weighted Jain): 0.997 over ticks 43-302
+switch overhead: 1.88% of busy time; total 1074 ticks, idle 0, other 0
+CSV,summary,1,4,20,70680,520,9,997,188,1074,0
+running 3 at 1138
+Logging Stopped
+$ 

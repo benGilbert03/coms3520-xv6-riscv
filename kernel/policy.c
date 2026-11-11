@@ -29,6 +29,7 @@
 //
 // Scheduler IDs added (Feature 7):
 //  3  SCHED_MLFQ  1C MLFQ: 3 queues, start queue from nice, allotment, 60-tick boost
+//  4  SCHED_STRIDE stride scheduling, tickets = nice weight, 10-tick quantum
 //  6  SCHED_RR5   round robin, 5-tick (50 ms) quantum
 
 #include "types.h"
@@ -43,6 +44,7 @@
 #define SCHED_RR1    1 // round robin, 1-tick (10 ms) quantum
 #define SCHED_PRIO   2 // strict priority by nice (Project 1B), 10-tick quantum
 #define SCHED_MLFQ   3 // multi-level feedback queue (Section 3.5)
+#define SCHED_STRIDE 4 // stride scheduling, tickets = nice weight (Section 3.6)
 #define SCHED_RR5    6 // round robin, 5-tick (50 ms) quantum
 
 // Linux CFS weights for nice -20 .. 19, indexed by nice + 20
@@ -69,6 +71,12 @@ static int boost_interval;             // ticks between priority boosts
 static uint last_boost;                // value of ticks at the last boost
 static int last_at[MLFQ_LEVELS];       // per-level round-robin position
 
+// Stride: a process's tickets are its nice weight, and its stride is
+// STRIDE1 / tickets, scaled so every nice value gets a nonzero stride
+// (189 at nice -20, 16384 at nice 0, about 1.1M at nice 19). p->vrt
+// holds the pass value.
+#define STRIDE1 (1 << 24)
+
 // Called by set_scheduler(id), and again when a workload starts.
 // Set up global state for policy id.
 // Return 0 if id is a known policy, -1 otherwise.
@@ -85,6 +93,9 @@ policy_init(int id)
     break;
   case SCHED_RR5:
     quantum = 5;
+    break;
+  case SCHED_STRIDE:
+    quantum = 10;
     break;
   case SCHED_MLFQ:
     mlfq_quantum[0] = 15; mlfq_allot[0] = 0; // Q0: no further demotion
@@ -221,6 +232,32 @@ pick_mlfq(void)
   return 0;
 }
 
+// Stride: the pass added for each tick p runs. Computed from the
+// current nice value, so a nice change takes effect at the next tick.
+static uint64
+stride_of(struct proc *p)
+{
+  return STRIDE1 / nice_weight[p->nice + 20];
+}
+
+// Stride selection: the RUNNABLE process with the lowest pass. The scan
+// starts after the last process chosen and only a strictly lower pass
+// replaces the best so far, so equal passes take turns.
+static struct proc *
+pick_stride(void)
+{
+  struct proc *best = 0;
+
+  for (int i = 1; i <= NPROC; i++) {
+    struct proc *p = &proc[(last + i) % NPROC];
+    if (p->state == RUNNABLE && (best == 0 || p->vrt < best->vrt))
+      best = p;
+  }
+  if (best)
+    last = best - proc;
+  return best;
+}
+
 // Choose the next process to run, or return 0 if none is RUNNABLE.
 struct proc *
 policy_pick_next_proc(void)
@@ -230,6 +267,8 @@ policy_pick_next_proc(void)
     return pick_prio();
   case SCHED_MLFQ:
     return pick_mlfq();
+  case SCHED_STRIDE:
+    return pick_stride();
   default:
     return pick_rr();
   }
@@ -286,6 +325,8 @@ policy_tick(struct proc *p)
 {
   if (sched_current == SCHED_MLFQ)
     return tick_mlfq(p);
+  if (sched_current == SCHED_STRIDE)
+    p->vrt += stride_of(p); // pass grows by the stride for each tick run
   p->qticks++;
   return p->qticks >= quantum;
 }
@@ -297,9 +338,27 @@ policy_tick(struct proc *p)
 // current minimum, so it cannot claim the CPU for the time it slept.
 // MLFQ does nothing here: a waking process keeps its level and used
 // time (Rule 4), so sleeping cannot reset its allotment.
+// Stride: a waking (or arriving) process's pass is raised to the lowest
+// pass of the other RUNNING and RUNNABLE processes, so it cannot use
+// the time it slept to take over the CPU. It never moves backward, and
+// if no other process is ready it keeps its own pass. A process made
+// by fork() becomes RUNNABLE without coming through here, so it starts
+// at pass 0; workload jobs always arrive through here.
 void
 policy_wakeup(struct proc *p)
 {
+  if (sched_current != SCHED_STRIDE)
+    return;
+
+  struct proc *min = 0;
+  for (struct proc *q = proc; q < &proc[NPROC]; q++) {
+    if (q == p || (q->state != RUNNING && q->state != RUNNABLE))
+      continue;
+    if (min == 0 || q->vrt < min->vrt)
+      min = q;
+  }
+  if (min && min->vrt > p->vrt)
+    p->vrt = min->vrt;
 }
 
 // Called whenever p's nice value changes.

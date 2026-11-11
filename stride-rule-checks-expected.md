@@ -1,0 +1,10 @@
+# Scheduler 4 (stride) rule checks: expected observations
+
+Written before running any of the tests below.
+
+| # | Rule | Test and setup | Expected observation |
+|---|---|---|---|
+| 1 | CPU in proportion to nice weight | `logwl 3 4`: four CPU-bound batch jobs with nice -10, -5, 5, 11 (weights 9548, 3121, 335, 87), all arriving at tick 0. Count each job's CPU ticks in the fairness window (start until the first batch job finishes). | The nice -10 job gets about 3x the CPU of the nice -5 job (9548 / 3121 = 3.06). The nice 5 and 11 jobs get the least, but each gets at least one full 10-tick quantum at the start, because every job starts at pass 0, which is more than its exact share. Fairness well above MLFQ's 0.427, but below 1.0 (about 0.65-0.8) because of that first quantum. |
+| 2 | Equal weights get equal shares | `wl 2 4`: three nice 0 batch jobs plus three interactive jobs. Compare the batch jobs' CPU in the fairness window. | The three batch jobs' CPU in the window differs by at most about one quantum (10 ticks). Fairness at least 0.99. |
+| 3 | A late arrival cannot claim credit for time it was absent | `logwl 1 4`: batch jobs arrive at ticks 0, 11, 29, 31, 43. A new job enters through policy_wakeup and is given the lowest pass among the running jobs instead of pass 0. | Each late job gets its first run within a few quanta of arriving, and then takes turns with the others: it never runs more than one 10-tick quantum in a row while other jobs are ready. Without the wakeup rule, the job arriving at 43 would run alone for many quanta to catch up. |
+| 4 | No starvation, even at the lowest weight | `logwl 5 4`: two nice 11 batch jobs (weight 87) arrive at ticks 7 and 11 while four nice 0 I/O jobs (weight 1024) keep the CPU busy. | The batch jobs first run soon after arriving (pass set to the minimum on arrival), and keep getting occasional 10-tick quanta while the I/O jobs run: slow, because their weight is about 1/12 of an I/O job's, but never zero. Both batch jobs complete. Their turnaround is long (they get only a small share until the I/O jobs finish), but unlike scheduler 2 their first run is not delayed until the I/O jobs finish. |
