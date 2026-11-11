@@ -112,6 +112,8 @@ struct proc {
   int level;  // queue level, for multi-level policies
   int used;   // ticks used at the current level (allotment)
   int start;  // starting queue level, from nice (MLFQ Rules 3, 5, 6)
+  int woke;   // woke since its last full slice (ID 5)
+  int ran;    // ticks run since policy_proc_init (ID 5)
   uint64 vrt; // weighted CPU usage, for fair-share policies
 
   // Project 1C: workload harness slot, or -1 if not a worker.

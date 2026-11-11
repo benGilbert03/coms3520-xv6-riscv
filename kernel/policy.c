@@ -30,6 +30,8 @@
 // Scheduler IDs added (Feature 7):
 //  3  SCHED_MLFQ  1C MLFQ: 3 queues, start queue from nice, allotment, 60-tick boost
 //  4  SCHED_STRIDE stride scheduling, tickets = nice weight, 10-tick quantum
+//  5  SCHED_RSTRIDE responsive stride: ID 12 + dynamic slice, wakeup preemption,
+//                  short slice for woken jobs, one-time head start for new jobs
 //  6  SCHED_RR5   round robin, 5-tick (50 ms) quantum
 // Stride tuning variants (Checkpoint 4), each one change from ID 4:
 // 10  SCHED_STRIDE_Q2      stride with a 2-tick quantum (H1)
@@ -51,6 +53,7 @@
 #define SCHED_PRIO   2 // strict priority by nice (Project 1B), 10-tick quantum
 #define SCHED_MLFQ   3 // multi-level feedback queue (Section 3.5)
 #define SCHED_STRIDE 4 // stride scheduling, tickets = nice weight (Section 3.6)
+#define SCHED_RSTRIDE 5 // responsive stride, own design (Section 3.8)
 #define SCHED_RR5    6 // round robin, 5-tick (50 ms) quantum
 #define SCHED_STRIDE_Q2      10 // H1: stride, 2-tick quantum
 #define SCHED_STRIDE_PREEMPT 11 // H2: stride, preempt on a lower pass
@@ -95,6 +98,14 @@ static uint64 wake_credit;   // H3: pass a waking job may sit below the min
 static int nice_half;        // H4: tickets from nice/2 instead of nice
 static int scale_quantum;    // H5: quantum scaled by the job's weight
 
+// Responsive stride (ID 5) settings. Times in ticks; credits and the
+// wakeup granularity in pass units (STRIDE1 / 1024 = one nice-0 tick).
+static int sched_latency;    // slice = sched_latency / ready jobs (CFS)
+static int min_gran;         // shortest slice; also a woken job's slice
+static int max_slice;        // longest slice
+static uint64 wake_gran;     // a woken job preempts only if this much lower
+static uint64 new_credit;    // one-time head start on a job's first arrival
+
 static void
 stride_defaults(void)
 {
@@ -103,6 +114,7 @@ stride_defaults(void)
   wake_credit = 0;
   nice_half = 0;
   scale_quantum = 0;
+  new_credit = 0;
 }
 
 // Called by set_scheduler(id), and again when a workload starts.
@@ -124,6 +136,15 @@ policy_init(int id)
     break;
   case SCHED_STRIDE:
     stride_defaults();
+    break;
+  case SCHED_RSTRIDE:
+    stride_defaults();
+    wake_credit = STRIDE1 / 1024;     // ID 12's sleeper credit
+    sched_latency = 20;
+    min_gran = 2;
+    max_slice = 10;
+    wake_gran = 2 * (STRIDE1 / 1024);
+    new_credit = 10 * (STRIDE1 / 1024);
     break;
   case SCHED_STRIDE_Q2:
     stride_defaults();
@@ -216,6 +237,8 @@ policy_proc_init(struct proc *p)
   p->level = p->start;
   p->used = 0;
   p->vrt = 0;
+  p->woke = 0;
+  p->ran = 0;
 }
 
 // Round robin: the next RUNNABLE process after the last one chosen,
@@ -284,7 +307,7 @@ pick_mlfq(void)
 static int
 is_stride(int id)
 {
-  return id == SCHED_STRIDE ||
+  return id == SCHED_STRIDE || id == SCHED_RSTRIDE ||
          (id >= SCHED_STRIDE_Q2 && id <= SCHED_STRIDE_SCALEQ);
 }
 
@@ -409,6 +432,48 @@ tick_stride(struct proc *p)
   return 0;
 }
 
+// Responsive stride (ID 5): the slice is sched_latency divided by the
+// number of RUNNING and RUNNABLE processes, clamped to
+// [min_gran, max_slice], so few ready jobs get long slices (few
+// switches) and many still each get a turn soon. A job that just woke
+// gets only min_gran, so it gets on quickly but cannot hold the CPU.
+static int
+rstride_slice(struct proc *p)
+{
+  if (p->woke)
+    return min_gran;
+  int n = 0;
+  for (struct proc *q = proc; q < &proc[NPROC]; q++)
+    if (q->state == RUNNING || q->state == RUNNABLE)
+      n++;
+  int s = sched_latency / (n > 0 ? n : 1);
+  if (s < min_gran)
+    s = min_gran;
+  if (s > max_slice)
+    s = max_slice;
+  return s;
+}
+
+// Responsive stride tick: charge the tick to the pass, end the slice
+// when it is used up, and otherwise preempt only for a job that just
+// woke with a pass more than wake_gran below p's (CFS wakeup
+// granularity), so equal batch jobs never preempt each other.
+static int
+tick_rstride(struct proc *p)
+{
+  p->vrt += stride_of(p);
+  p->qticks++;
+  p->ran++;
+  if (p->qticks >= rstride_slice(p)) {
+    p->woke = 0;
+    return 1;
+  }
+  for (struct proc *q = proc; q < &proc[NPROC]; q++)
+    if (q->state == RUNNABLE && q->woke && q->vrt + wake_gran < p->vrt)
+      return 1;
+  return 0;
+}
+
 // Called on every timer tick while p is running.
 // Return 1 to preempt p, or 0 to let it keep running.
 // A process is charged only for ticks that arrive while it is running.
@@ -422,6 +487,8 @@ policy_tick(struct proc *p)
 {
   if (sched_current == SCHED_MLFQ)
     return tick_mlfq(p);
+  if (sched_current == SCHED_RSTRIDE)
+    return tick_rstride(p);
   if (is_stride(sched_current))
     return tick_stride(p);
   p->qticks++;
@@ -442,12 +509,15 @@ policy_tick(struct proc *p)
 // by fork() becomes RUNNABLE without coming through here, so it starts
 // at pass 0; workload jobs always arrive through here. H3 lets a waking
 // job sit up to wake_credit below the minimum, a bounded bonus for
-// sleeping that cannot be saved up.
+// sleeping that cannot be saved up. ID 5 also marks the job as woken,
+// and on its first arrival (ran == 0) gives it new_credit instead, a
+// one-time head start so short new jobs can finish early.
 void
 policy_wakeup(struct proc *p)
 {
   if (!is_stride(sched_current))
     return;
+  p->woke = 1;
 
   struct proc *min = 0;
   for (struct proc *q = proc; q < &proc[NPROC]; q++) {
@@ -458,7 +528,8 @@ policy_wakeup(struct proc *p)
   }
   if (min == 0)
     return;
-  uint64 floor = min->vrt > wake_credit ? min->vrt - wake_credit : 0;
+  uint64 credit = (p->ran == 0 && new_credit) ? new_credit : wake_credit;
+  uint64 floor = min->vrt > credit ? min->vrt - credit : 0;
   if (floor > p->vrt)
     p->vrt = floor;
 }
