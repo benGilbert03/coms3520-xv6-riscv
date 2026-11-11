@@ -1,0 +1,100 @@
+/bin/sh: 1: bc: not found
+/bin/sh: 1: [: Illegal number: 
+
+xv6 kernel is booting
+
+init: starting sh
+$ mlfqtest
+Logging Started
+level 3 1->2 at 21
+nice set to -10 for 3
+running 4 at 21
+running 3 at 22
+running 5 at 22
+running 3 at 23
+running 6 at 23
+running 3 at 24
+running 7 at 24
+running 3 at 25
+running 8 at 25
+running 3 at 26
+running 4 at 26
+running 3 at 27
+running 5 at 27
+running 3 at 28
+running 6 at 28
+running 3 at 29
+running 7 at 29
+running 8 at 29
+running 4 at 29
+running 3 at 30
+running 5 at 30
+running 3 at 31
+running 6 at 31
+running 3 at 32
+running 7 at 32
+running 3 at 33
+running 8 at 33
+running 3 at 34
+running 4 at 34
+running 3 at 35
+running 5 at 35
+running 3 at 36
+level 4 1->2 at 36
+nice set to -15 for 4
+nice set to 3 for 5
+level 6 1->0 at 36
+nice set to 12 for 6
+running 4 at 36
+level 4 2->1 at 38
+running 7 at 38
+running 8 at 38
+running 4 at 38
+level 4 1->0 at 48
+running 5 at 48
+level 5 1->0 at 54
+running 7 at 54
+running 8 at 55
+running 7 at 56
+running 8 at 57
+running 7 at 58
+running 8 at 59
+running 7 at 60
+running 8 at 61
+running 7 at 62
+running 8 at 63
+running 7 at 64
+running 8 at 65
+running 7 at 66
+running 8 at 67
+running 7 at 68
+level 7 1->0 at 69
+running 8 at 69
+level 8 1->0 at 70
+running 4 at 70
+running 3 at 71
+running 5 at 71
+running 3 at 72
+running 6 at 72
+running 3 at 73
+running 7 at 73
+running 8 at 73
+running 7 at 74
+running 8 at 75
+running 7 at 76
+running 8 at 77
+running 7 at 78
+level 7 0->1 at 79
+level 8 0->1 at 79
+running 8 at 79
+running 7 at 80
+running 8 at 81
+running 7 at 82
+running 8 at 83
+running 7 at 84
+running 3 at 84
+running 8 at 85
+running 3 at 85
+Logging Stopped
+mlfqtest: parent=3 cpu A=4 B=5 C=6 (nice -15 3 12), io D=7 E=8
+$ 

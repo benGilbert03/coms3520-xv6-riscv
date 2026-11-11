@@ -1,0 +1,912 @@
+/bin/sh: 1: bc: not found
+/bin/sh: 1: [: Illegal number: 
+
+xv6 kernel is booting
+
+init: starting sh
+$ logwl 5 3
+Logging Started
+running 4 at 21
+running 4 at 22
+running 4 at 23
+running 4 at 23
+running 4 at 23
+running 4 at 23
+running 4 at 23
+running 4 at 23
+running 4 at 23
+level 5 1->0 at 26
+nice set to 11 for 5
+level 6 1->0 at 26
+nice set to 11 for 6
+nice set to 0 for 7
+nice set to 0 for 8
+nice set to 0 for 9
+nice set to 0 for 10
+running 7 at 27
+running 8 at 29
+running 9 at 31
+running 10 at 33
+running 7 at 35
+running 8 at 37
+running 9 at 39
+running 10 at 41
+running 7 at 43
+running 8 at 45
+running 9 at 47
+running 10 at 49
+running 7 at 51
+running 8 at 53
+running 9 at 55
+running 10 at 57
+running 7 at 59
+level 7 1->0 at 61
+running 8 at 61
+level 8 1->0 at 63
+running 9 at 63
+level 9 1->0 at 65
+running 10 at 65
+level 10 1->0 at 67
+running 5 at 67
+running 6 at 82
+level 5 0->1 at 87
+level 6 0->1 at 87
+level 7 0->1 at 87
+level 8 0->1 at 87
+level 9 0->1 at 87
+level 10 0->1 at 87
+running 5 at 92
+level 5 1->0 at 102
+running 6 at 102
+level 6 1->0 at 107
+running 7 at 107
+running 8 at 109
+running 9 at 111
+running 10 at 113
+running 7 at 115
+running 8 at 117
+running 9 at 119
+running 10 at 121
+running 7 at 123
+running 8 at 125
+running 9 at 127
+running 10 at 129
+running 7 at 131
+running 8 at 133
+running 9 at 135
+running 10 at 137
+running 7 at 139
+level 7 1->0 at 141
+running 8 at 141
+level 8 1->0 at 143
+running 9 at 143
+level 9 1->0 at 145
+running 10 at 145
+level 5 0->1 at 147
+level 6 0->1 at 147
+level 7 0->1 at 147
+level 8 0->1 at 147
+level 9 0->1 at 147
+running 5 at 147
+level 5 1->0 at 157
+running 6 at 157
+level 6 1->0 at 167
+running 7 at 167
+running 8 at 169
+running 9 at 171
+running 10 at 173
+running 7 at 175
+running 8 at 177
+running 9 at 179
+running 10 at 181
+running 7 at 183
+running 8 at 185
+running 9 at 187
+running 10 at 189
+running 7 at 191
+running 8 at 193
+running 9 at 195
+running 10 at 197
+running 7 at 199
+level 7 1->0 at 201
+running 8 at 201
+level 8 1->0 at 203
+running 9 at 203
+level 9 1->0 at 205
+running 10 at 205
+level 5 0->1 at 207
+level 6 0->1 at 207
+level 7 0->1 at 207
+level 8 0->1 at 207
+level 9 0->1 at 207
+running 5 at 207
+level 5 1->0 at 217
+running 6 at 217
+level 6 1->0 at 227
+running 7 at 227
+running 8 at 229
+running 9 at 231
+running 10 at 233
+running 7 at 235
+running 8 at 237
+running 9 at 239
+running 10 at 241
+running 7 at 243
+running 8 at 245
+running 9 at 247
+running 10 at 249
+running 7 at 251
+running 8 at 253
+running 9 at 255
+running 10 at 257
+running 7 at 259
+level 7 1->0 at 261
+running 8 at 261
+level 8 1->0 at 263
+running 9 at 263
+level 9 1->0 at 265
+running 10 at 265
+level 5 0->1 at 267
+level 6 0->1 at 267
+level 7 0->1 at 267
+level 8 0->1 at 267
+level 9 0->1 at 267
+running 5 at 267
+level 5 1->0 at 277
+running 6 at 277
+level 6 1->0 at 287
+running 7 at 287
+running 8 at 289
+running 9 at 291
+running 10 at 293
+running 7 at 295
+running 8 at 297
+running 9 at 299
+running 10 at 301
+running 7 at 303
+running 8 at 305
+running 9 at 307
+running 10 at 309
+running 7 at 311
+running 8 at 313
+running 9 at 315
+running 10 at 317
+running 7 at 319
+level 7 1->0 at 321
+running 8 at 321
+level 8 1->0 at 323
+running 9 at 323
+level 9 1->0 at 325
+running 10 at 325
+level 5 0->1 at 327
+level 6 0->1 at 327
+level 7 0->1 at 327
+level 8 0->1 at 327
+level 9 0->1 at 327
+running 5 at 327
+level 5 1->0 at 337
+running 6 at 337
+level 6 1->0 at 347
+running 7 at 347
+running 8 at 349
+running 9 at 351
+running 10 at 353
+running 7 at 355
+running 8 at 357
+running 9 at 359
+running 10 at 361
+running 7 at 363
+running 8 at 365
+running 9 at 367
+running 10 at 369
+running 7 at 371
+running 8 at 373
+running 9 at 375
+running 10 at 377
+running 7 at 379
+level 7 1->0 at 381
+running 8 at 381
+level 8 1->0 at 383
+running 9 at 383
+level 9 1->0 at 385
+running 10 at 385
+level 5 0->1 at 387
+level 6 0->1 at 387
+level 7 0->1 at 387
+level 8 0->1 at 387
+level 9 0->1 at 387
+running 5 at 387
+level 5 1->0 at 397
+running 6 at 397
+level 6 1->0 at 407
+running 7 at 407
+running 8 at 409
+running 9 at 411
+running 10 at 413
+running 7 at 415
+running 8 at 417
+running 9 at 419
+running 10 at 421
+running 7 at 423
+running 8 at 425
+running 9 at 427
+running 10 at 429
+running 7 at 431
+running 8 at 433
+running 9 at 435
+running 10 at 437
+running 7 at 439
+level 7 1->0 at 441
+running 8 at 441
+level 8 1->0 at 443
+running 9 at 443
+level 9 1->0 at 445
+running 10 at 445
+level 5 0->1 at 447
+level 6 0->1 at 447
+level 7 0->1 at 447
+level 8 0->1 at 447
+level 9 0->1 at 447
+running 5 at 447
+level 5 1->0 at 457
+running 6 at 457
+level 6 1->0 at 467
+running 7 at 467
+running 8 at 469
+running 9 at 471
+running 10 at 473
+running 7 at 475
+running 8 at 477
+running 9 at 479
+running 10 at 481
+running 7 at 483
+running 8 at 485
+running 9 at 487
+running 10 at 489
+running 7 at 491
+running 8 at 493
+running 9 at 495
+running 10 at 497
+running 7 at 499
+level 7 1->0 at 501
+running 8 at 501
+level 8 1->0 at 503
+running 9 at 503
+level 9 1->0 at 505
+running 10 at 505
+level 5 0->1 at 507
+level 6 0->1 at 507
+level 7 0->1 at 507
+level 8 0->1 at 507
+level 9 0->1 at 507
+running 5 at 507
+level 5 1->0 at 517
+running 6 at 517
+level 6 1->0 at 527
+running 7 at 527
+running 8 at 529
+running 9 at 531
+running 10 at 533
+running 7 at 535
+running 8 at 537
+running 9 at 539
+running 10 at 541
+running 7 at 543
+running 8 at 545
+running 9 at 547
+running 10 at 549
+running 7 at 551
+running 8 at 553
+running 9 at 555
+running 10 at 557
+running 7 at 559
+level 7 1->0 at 561
+running 8 at 561
+level 8 1->0 at 563
+running 9 at 563
+level 9 1->0 at 565
+running 10 at 565
+level 5 0->1 at 567
+level 6 0->1 at 567
+level 7 0->1 at 567
+level 8 0->1 at 567
+level 9 0->1 at 567
+running 5 at 567
+level 5 1->0 at 577
+running 6 at 577
+level 6 1->0 at 587
+running 7 at 587
+running 8 at 589
+running 9 at 591
+running 10 at 593
+running 7 at 595
+running 8 at 597
+running 9 at 599
+running 10 at 601
+running 7 at 603
+running 8 at 605
+running 9 at 607
+running 10 at 609
+running 7 at 611
+running 8 at 613
+running 9 at 615
+running 10 at 617
+running 7 at 619
+level 7 1->0 at 621
+running 8 at 621
+level 8 1->0 at 623
+running 9 at 623
+level 9 1->0 at 625
+running 10 at 625
+level 5 0->1 at 627
+level 6 0->1 at 627
+level 7 0->1 at 627
+level 8 0->1 at 627
+level 9 0->1 at 627
+running 5 at 627
+level 5 1->0 at 637
+running 6 at 637
+level 6 1->0 at 647
+running 7 at 647
+running 8 at 649
+running 9 at 651
+running 10 at 653
+running 7 at 655
+running 8 at 657
+running 9 at 659
+running 10 at 661
+running 7 at 663
+running 8 at 665
+running 9 at 667
+running 10 at 669
+running 7 at 671
+running 8 at 673
+running 9 at 675
+running 10 at 677
+running 7 at 679
+level 7 1->0 at 681
+running 8 at 681
+level 8 1->0 at 683
+running 9 at 683
+level 9 1->0 at 685
+running 10 at 685
+level 5 0->1 at 687
+level 6 0->1 at 687
+level 7 0->1 at 687
+level 8 0->1 at 687
+level 9 0->1 at 687
+running 5 at 687
+level 5 1->0 at 697
+running 6 at 697
+level 6 1->0 at 707
+running 7 at 707
+running 8 at 709
+running 9 at 711
+running 10 at 713
+running 7 at 715
+running 8 at 717
+running 9 at 719
+running 10 at 721
+running 7 at 723
+running 8 at 725
+running 9 at 727
+running 10 at 729
+running 7 at 731
+running 8 at 733
+running 9 at 735
+running 10 at 737
+running 7 at 739
+level 7 1->0 at 741
+running 8 at 741
+level 8 1->0 at 743
+running 9 at 743
+level 9 1->0 at 745
+running 10 at 745
+level 5 0->1 at 747
+level 6 0->1 at 747
+level 7 0->1 at 747
+level 8 0->1 at 747
+level 9 0->1 at 747
+running 5 at 747
+level 5 1->0 at 757
+running 6 at 757
+level 6 1->0 at 767
+running 7 at 767
+running 8 at 769
+running 9 at 771
+running 10 at 773
+running 7 at 775
+running 8 at 777
+running 9 at 779
+running 10 at 781
+running 7 at 783
+running 8 at 785
+running 9 at 787
+running 10 at 789
+running 7 at 791
+running 8 at 793
+running 9 at 795
+running 10 at 797
+running 7 at 799
+level 7 1->0 at 801
+running 8 at 801
+level 8 1->0 at 803
+running 9 at 803
+level 9 1->0 at 805
+running 10 at 805
+level 5 0->1 at 807
+level 6 0->1 at 807
+level 7 0->1 at 807
+level 8 0->1 at 807
+level 9 0->1 at 807
+running 5 at 807
+level 5 1->0 at 817
+running 6 at 817
+level 6 1->0 at 827
+running 7 at 827
+running 8 at 829
+running 9 at 831
+running 10 at 833
+running 7 at 835
+running 8 at 837
+running 9 at 839
+running 10 at 841
+running 7 at 843
+running 8 at 845
+running 9 at 847
+running 10 at 849
+running 7 at 851
+running 8 at 853
+running 9 at 855
+running 10 at 857
+running 7 at 859
+level 7 1->0 at 861
+running 8 at 861
+level 8 1->0 at 863
+running 9 at 863
+level 9 1->0 at 865
+running 10 at 865
+level 5 0->1 at 867
+level 6 0->1 at 867
+level 7 0->1 at 867
+level 8 0->1 at 867
+level 9 0->1 at 867
+running 5 at 867
+running 6 at 875
+level 6 1->0 at 885
+running 7 at 885
+running 8 at 887
+running 9 at 889
+running 10 at 891
+running 7 at 893
+running 8 at 895
+running 9 at 897
+running 10 at 899
+running 7 at 901
+running 8 at 903
+running 9 at 905
+running 10 at 907
+running 7 at 909
+running 8 at 911
+running 9 at 913
+running 10 at 915
+running 7 at 917
+level 7 1->0 at 919
+running 8 at 919
+level 8 1->0 at 921
+running 9 at 921
+level 9 1->0 at 923
+running 10 at 923
+level 10 1->0 at 925
+running 7 at 925
+level 6 0->1 at 927
+level 7 0->1 at 927
+level 8 0->1 at 927
+level 9 0->1 at 927
+level 10 0->1 at 927
+running 6 at 927
+running 7 at 936
+running 8 at 938
+running 9 at 940
+running 10 at 942
+running 7 at 944
+running 8 at 946
+running 9 at 948
+running 10 at 950
+running 7 at 952
+running 8 at 954
+running 9 at 956
+running 10 at 958
+running 7 at 960
+running 8 at 962
+running 9 at 964
+running 10 at 966
+running 7 at 968
+level 7 1->0 at 970
+running 8 at 970
+level 8 1->0 at 972
+running 9 at 972
+level 9 1->0 at 974
+running 10 at 974
+level 10 1->0 at 976
+running 8 at 976
+running 9 at 978
+running 10 at 980
+running 7 at 982
+running 8 at 984
+running 9 at 986
+level 7 0->1 at 987
+level 8 0->1 at 987
+level 9 0->1 at 987
+level 10 0->1 at 987
+running 7 at 988
+running 8 at 990
+running 9 at 992
+running 10 at 994
+running 7 at 996
+running 8 at 998
+running 9 at 1000
+running 10 at 1002
+running 7 at 1004
+running 8 at 1006
+running 9 at 1008
+running 10 at 1010
+running 7 at 1012
+running 8 at 1014
+running 9 at 1016
+running 10 at 1018
+running 7 at 1020
+level 7 1->0 at 1022
+running 8 at 1022
+level 8 1->0 at 1024
+running 9 at 1024
+level 9 1->0 at 1025
+running 10 at 1025
+level 10 1->0 at 1027
+running 7 at 1027
+running 8 at 1029
+running 9 at 1031
+running 10 at 1032
+running 7 at 1034
+running 8 at 1036
+running 9 at 1038
+running 10 at 1040
+running 7 at 1042
+running 8 at 1044
+running 9 at 1046
+level 7 0->1 at 1047
+level 8 0->1 at 1047
+level 9 0->1 at 1047
+level 10 0->1 at 1047
+running 7 at 1048
+running 8 at 1050
+running 9 at 1052
+running 10 at 1054
+running 7 at 1056
+running 8 at 1058
+running 9 at 1060
+running 10 at 1062
+running 7 at 1064
+running 8 at 1066
+running 9 at 1068
+running 10 at 1070
+running 7 at 1072
+running 8 at 1074
+running 9 at 1076
+running 10 at 1078
+running 7 at 1080
+level 7 1->0 at 1082
+running 8 at 1082
+level 8 1->0 at 1084
+running 9 at 1084
+level 9 1->0 at 1085
+running 10 at 1085
+level 10 1->0 at 1087
+running 7 at 1087
+running 8 at 1089
+running 9 at 1091
+running 10 at 1092
+running 7 at 1094
+running 8 at 1096
+running 9 at 1098
+running 10 at 1100
+running 7 at 1102
+running 8 at 1104
+running 9 at 1106
+level 7 0->1 at 1107
+level 8 0->1 at 1107
+level 9 0->1 at 1107
+level 10 0->1 at 1107
+running 7 at 1108
+running 8 at 1110
+running 9 at 1112
+running 10 at 1114
+running 7 at 1116
+running 8 at 1118
+running 9 at 1120
+running 10 at 1122
+running 7 at 1124
+running 8 at 1126
+running 9 at 1128
+running 10 at 1130
+running 7 at 1132
+running 8 at 1134
+running 9 at 1136
+running 10 at 1138
+running 7 at 1140
+level 7 1->0 at 1142
+running 8 at 1142
+level 8 1->0 at 1144
+running 9 at 1144
+level 9 1->0 at 1145
+running 10 at 1145
+level 10 1->0 at 1147
+running 7 at 1147
+running 8 at 1149
+running 9 at 1151
+running 10 at 1152
+running 7 at 1154
+running 8 at 1156
+running 9 at 1158
+running 10 at 1160
+running 7 at 1162
+running 8 at 1164
+running 9 at 1166
+level 7 0->1 at 1167
+level 8 0->1 at 1167
+level 9 0->1 at 1167
+level 10 0->1 at 1167
+running 7 at 1168
+running 8 at 1170
+running 9 at 1172
+running 10 at 1174
+running 7 at 1176
+running 8 at 1178
+running 9 at 1180
+running 10 at 1182
+running 7 at 1184
+running 8 at 1186
+running 9 at 1188
+running 10 at 1190
+running 7 at 1192
+running 8 at 1194
+running 9 at 1196
+running 10 at 1198
+running 7 at 1200
+level 7 1->0 at 1202
+running 8 at 1202
+level 8 1->0 at 1204
+running 9 at 1204
+level 9 1->0 at 1205
+running 10 at 1205
+level 10 1->0 at 1207
+running 7 at 1207
+running 8 at 1209
+running 9 at 1211
+running 10 at 1212
+running 7 at 1214
+running 8 at 1216
+running 9 at 1218
+running 10 at 1220
+running 7 at 1222
+running 8 at 1224
+running 9 at 1226
+level 7 0->1 at 1227
+level 8 0->1 at 1227
+level 9 0->1 at 1227
+level 10 0->1 at 1227
+running 7 at 1228
+running 8 at 1230
+running 9 at 1232
+running 10 at 1234
+running 7 at 1236
+running 8 at 1238
+running 9 at 1240
+running 10 at 1242
+running 7 at 1244
+running 8 at 1246
+running 9 at 1248
+running 10 at 1250
+running 7 at 1252
+running 8 at 1254
+running 9 at 1256
+running 10 at 1258
+running 7 at 1260
+level 7 1->0 at 1262
+running 8 at 1262
+level 8 1->0 at 1264
+running 9 at 1264
+level 9 1->0 at 1265
+running 10 at 1265
+level 10 1->0 at 1267
+running 7 at 1267
+running 8 at 1269
+running 9 at 1271
+running 10 at 1272
+running 7 at 1274
+running 8 at 1276
+running 9 at 1278
+running 10 at 1280
+running 7 at 1282
+running 8 at 1284
+running 9 at 1286
+level 7 0->1 at 1287
+level 8 0->1 at 1287
+level 9 0->1 at 1287
+level 10 0->1 at 1287
+running 7 at 1288
+running 8 at 1290
+running 9 at 1292
+running 10 at 1294
+running 7 at 1296
+running 8 at 1298
+running 9 at 1300
+running 10 at 1302
+running 7 at 1304
+running 8 at 1306
+running 9 at 1308
+running 10 at 1310
+running 7 at 1312
+running 8 at 1314
+running 9 at 1316
+running 10 at 1318
+running 7 at 1320
+level 7 1->0 at 1322
+running 8 at 1322
+level 8 1->0 at 1324
+running 9 at 1324
+level 9 1->0 at 1325
+running 10 at 1325
+level 10 1->0 at 1327
+running 7 at 1327
+running 8 at 1329
+running 9 at 1331
+running 10 at 1332
+running 7 at 1334
+running 8 at 1336
+running 9 at 1338
+running 10 at 1340
+running 7 at 1342
+running 8 at 1344
+running 9 at 1346
+level 7 0->1 at 1347
+level 8 0->1 at 1347
+level 9 0->1 at 1347
+level 10 0->1 at 1347
+running 7 at 1348
+running 8 at 1350
+running 9 at 1352
+running 10 at 1354
+running 7 at 1356
+running 8 at 1358
+running 9 at 1360
+running 10 at 1362
+running 7 at 1364
+running 8 at 1366
+running 9 at 1368
+running 10 at 1370
+running 7 at 1372
+running 8 at 1374
+running 9 at 1376
+running 10 at 1378
+running 7 at 1380
+level 7 1->0 at 1382
+running 8 at 1382
+level 8 1->0 at 1384
+running 9 at 1384
+level 9 1->0 at 1385
+running 10 at 1385
+level 10 1->0 at 1387
+running 7 at 1387
+running 8 at 1389
+running 9 at 1391
+running 10 at 1392
+running 7 at 1394
+running 8 at 1396
+running 9 at 1398
+running 10 at 1400
+running 7 at 1402
+running 8 at 1404
+running 9 at 1406
+level 7 0->1 at 1407
+level 8 0->1 at 1407
+level 9 0->1 at 1407
+level 10 0->1 at 1407
+running 7 at 1408
+running 8 at 1410
+running 9 at 1412
+running 10 at 1414
+running 7 at 1416
+running 8 at 1418
+running 9 at 1420
+running 10 at 1422
+running 7 at 1424
+running 8 at 1426
+running 9 at 1428
+running 10 at 1430
+running 7 at 1432
+running 8 at 1434
+running 9 at 1436
+running 10 at 1438
+running 7 at 1440
+level 7 1->0 at 1442
+running 8 at 1442
+level 8 1->0 at 1444
+running 9 at 1444
+level 9 1->0 at 1445
+running 10 at 1445
+level 10 1->0 at 1447
+running 7 at 1447
+running 8 at 1449
+running 9 at 1451
+running 10 at 1452
+running 7 at 1454
+running 8 at 1456
+running 9 at 1458
+running 10 at 1460
+running 7 at 1462
+running 8 at 1464
+running 9 at 1466
+level 7 0->1 at 1467
+level 8 0->1 at 1467
+level 9 0->1 at 1467
+level 10 0->1 at 1467
+running 7 at 1468
+running 8 at 1470
+running 9 at 1472
+running 10 at 1474
+running 7 at 1476
+running 8 at 1478
+running 9 at 1480
+running 10 at 1482
+running 7 at 1484
+running 8 at 1486
+running 9 at 1488
+running 10 at 1490
+running 9 at 1492
+running 10 at 1494
+running 9 at 1496
+level 9 1->0 at 1497
+running 10 at 1497
+level 10 1->0 at 1499
+running 9 at 1499
+running 10 at 1500
+running 9 at 1502
+running 10 at 1504
+running 9 at 1506
+running 10 at 1508
+running 9 at 1510
+running 10 at 1512
+running 9 at 1514
+running 10 at 1516
+running 9 at 1518
+running 10 at 1520
+running 9 at 1522
+running 10 at 1524
+workload 5, scheduler 3, switch cost 20 units
+job  pid nice  kind arrive first  done  turn   cpu    ovh   resp  rmax
+  0    5   11 batch      7    40   848   841   150   3.00  33.00    33
+CSV,job,0,11,1,7,40,848,841,15000,300,1,33,33
+  1    6running 4 at 1536
+   11 batch     11    55 level 4 1->0 at 1537
+running 4 at 1537
+  909   898   150   3.20  44.00    44
+CSV,job,1,11,1,11,55,909,898,15000,320,1,44,44
+  2    7    0 inter      0     0  1459  1459   149  29.80   6.79    45
+CSV,job,2,0,0,0,0,1459,1459,14900,2980,149,1013,45
+  3    8    0 inter      0     2  1461  1461   149  29.80   6.81    45
+CSV,job,3,0,0,0,2,1461,1461,14900,2980,149,1015,45
+  4    9    0 inter      0     4  1497  1497 running 4 at 1552
+  149  31.60   6.71    45
+CSV,job,4,0,0,0,4,1497,1497,14900,3160,149,1001,45
+  5   10    0 inter      0     6  1499  1499   149  29.80   7.06    45
+CSV,job,5,0,0,0,6,1499,1499,14900,2980,149,1053,45
+turnaround (mean, batch jobs): 869.50 ticks
+response (mean, all CPU bursts): 6.95 ticks, worst 45
+fairness (nice-weighted Jain): 0.996 over ticks 11-848
+switch overhead: 8.48%running 4 at 1567
+ of busy time; total 1499 ticks, idle 0, other 0
+CSV,summary,5,3,20,86950,695,45,996,848,1499,0
+running 3 at 1570
+Logging Stopped
+$ 

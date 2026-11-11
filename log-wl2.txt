@@ -1,0 +1,333 @@
+/bin/sh: 1: bc: not found
+/bin/sh: 1: [: Illegal number: 
+
+xv6 kernel is booting
+
+init: starting sh
+$ logwl 2 3
+Logging Started
+running 4 at 17
+running 4 at 17
+running 4 at 18
+running 4 at 18
+running 4 at 18
+running 4 at 18
+running 4 at 18
+running 4 at 18
+running 4 at 18
+nice set to 0 for 5
+nice set to 0 for 6
+nice set to 0 for 7
+nice set to 0 for 8
+nice set to 0 for 9
+nice set to 0 for 10
+running 5 at 22
+level 5 1->0 at 32
+running 6 at 32
+level 6 1->0 at 42
+running 7 at 42
+level 7 1->0 at 52
+running 8 at 52
+running 9 at 54
+running 10 at 57
+running 5 at 59
+running 8 at 65
+running 6 at 67
+running 9 at 74
+running 7 at 77
+running 8 at 78
+running 5 at 80
+level 5 0->1 at 82
+level 6 0->1 at 82
+level 7 0->1 at 82
+running 10 at 90
+running 5 at 92
+level 5 1->0 at 94
+running 6 at 94
+level 6 1->0 at 104
+running 7 at 104
+level 7 1->0 at 114
+running 8 at 114
+running 9 at 116
+running 10 at 119
+running 6 at 121
+running 8 at 127
+running 7 at 129
+running 9 at 136
+running 5 at 139
+running 8 at 140
+level 5 0->1 at 142
+level 6 0->1 at 142
+level 7 0->1 at 142
+running 5 at 142
+level 5 1->0 at 152
+running 6 at 152
+level 6 1->0 at 162
+running 7 at 162
+level 7 1->0 at 172
+running 8 at 172
+running 9 at 174
+running 10 at 177
+running 6 at 179
+running 8 at 185
+running 7 at 187
+running 9 at 194
+running 5 at 197
+running 8 at 198
+running 6 at 200
+level 5 0->1 at 202
+level 6 0->1 at 202
+level 7 0->1 at 202
+running 10 at 210
+running 5 at 212
+level 5 1->0 at 222
+running 6 at 222
+level 6 1->0 at 224
+running 7 at 224
+level 7 1->0 at 234
+running 8 at 234
+running 9 at 236
+running 10 at 239
+running 7 at 241
+running 8 at 247
+running 5 at 249
+running 9 at 256
+running 6 at 259
+running 8 at 260
+level 5 0->1 at 262
+level 6 0->1 at 262
+level 7 0->1 at 262
+running 5 at 262
+level 5 1->0 at 272
+running 6 at 272
+level 6 1->0 at 282
+running 7 at 282
+level 7 1->0 at 292
+running 8 at 292
+running 9 at 294
+running 10 at 297
+running 7 at 299
+running 8 at 305
+running 5 at 307
+running 9 at 314
+running 6 at 317
+running 8 at 318
+running 7 at 320
+level 5 0->1 at 322
+level 6 0->1 at 322
+level 7 0->1 at 322
+running 10 at 330
+running 5 at 332
+level 5 1->0 at 342
+running 6 at 342
+level 6 1->0 at 352
+running 7 at 352
+level 7 1->0 at 354
+running 8 at 354
+running 9 at 356
+running 10 at 359
+running 5 at 361
+running 8 at 367
+running 6 at 369
+running 9 at 376
+running 7 at 379
+running 8 at 380
+level 5 0->1 at 382
+level 6 0->1 at 382
+level 7 0->1 at 382
+running 5 at 382
+level 5 1->0 at 392
+running 6 at 392
+level 6 1->0 at 402
+running 7 at 402
+level 7 1->0 at 412
+running 8 at 412
+running 9 at 414
+running 10 at 417
+running 5 at 419
+running 8 at 425
+running 6 at 427
+running 9 at 434
+running 7 at 437
+running 8 at 438
+running 5 at 440
+level 5 0->1 at 442
+level 6 0->1 at 442
+level 7 0->1 at 442
+running 10 at 450
+running 5 at 452
+level 5 1->0 at 454
+running 6 at 454
+level 6 1->0 at 464
+running 7 at 464
+level 7 1->0 at 474
+running 8 at 474
+running 9 at 476
+running 10 at 479
+running 6 at 481
+running 8 at 487
+running 7 at 489
+running 9 at 496
+running 5 at 499
+running 8 at 500
+level 5 0->1 at 502
+level 6 0->1 at 502
+level 7 0->1 at 502
+running 5 at 502
+level 5 1->0 at 512
+running 6 at 512
+level 6 1->0 at 522
+running 7 at 522
+level 7 1->0 at 532
+running 8 at 532
+running 9 at 534
+running 10 at 537
+running 6 at 539
+running 8 at 545
+running 7 at 547
+running 9 at 554
+running 5 at 557
+running 8 at 558
+running 6 at 560
+level 5 0->1 at 562
+level 6 0->1 at 562
+level 7 0->1 at 562
+running 10 at 570
+running 5 at 572
+level 5 1->0 at 582
+running 6 at 582
+level 6 1->0 at 584
+running 7 at 584
+level 7 1->0 at 594
+running 8 at 594
+running 9 at 596
+running 10 at 599
+running 7 at 601
+running 8 at 607
+running 5 at 609
+running 9 at 616
+running 6 at 619
+running 8 at 620
+level 5 0->1 at 622
+level 6 0->1 at 622
+level 7 0->1 at 622
+running 5 at 622
+level 5 1->0 at 632
+running 6 at 632
+level 6 1->0 at 642
+running 7 at 642
+level 7 1->0 at 652
+running 10 at 652
+running 7 at 654
+running 5 at 669
+running 10 at 677
+running 6 at 679
+level 5 0->1 at 682
+level 6 0->1 at 682
+level 7 0->1 at 682
+running 5 at 689
+level 5 1->0 at 699
+running 6 at 699
+level 6 1->0 at 702
+running 7 at 702
+level 7 1->0 at 712
+running 10 at 712
+running 7 at 714
+running 5 at 729
+running 10 at 737
+running 6 at 739
+level 5 0->1 at 742
+level 6 0->1 at 742
+level 7 0->1 at 742
+running 5 at 749
+level 5 1->0 at 759
+running 6 at 759
+level 6 1->0 at 762
+running 7 at 762
+level 7 1->0 at 772
+running 10 at 772
+running 7 at 774
+running 5 at 789
+level 5 0->1 at 802
+level 6 0->1 at 802
+level 7 0->1 at 802
+running 5 at 802
+level 5 1->0 at 812
+running 6 at 812
+level 6 1->0 at 822
+running 7 at 822
+level 7 1->0 at 832
+running 6 at 832
+running 7 at 847
+level 5 0->1 at 862
+level 6 0->1 at 862
+level 7 0->1 at 862
+running 5 at 862
+level 5 1->0 at 872
+running 6 at 872
+level 6 1->0 at 882
+running 7 at 882
+level 7 1->0 at 892
+running 5 at 892
+running 6 at 907
+level 5 0->1 at 922
+level 6 0->1 at 922
+level 7 0->1 at 922
+running 5 at 922
+level 5 1->0 at 932
+running 6 at 932
+level 6 1->0 at 942
+running 7 at 942
+level 7 1->0 at 952
+running 7 at 952
+running 5 at 967
+level 5 0->1 at 982
+level 6 0->1 at 982
+level 7 0->1 at 982
+running 5 at 982
+level 5 1->0 at 992
+running 6 at 992
+level 6 1->0 at 1002
+running 7 at 1002
+level 7 1->0 at 1012
+running 6 at 1012
+running 7 at 1027
+running 5 at 1038
+level 5 0->1 at 1042
+level 6 0->1 at 1042
+running 5 at 1048
+level 5 1->0 at 1052
+running 6 at 1052
+level 6 1->0 at 1062
+running 6 at 1062
+running 5 at 1077
+running 6 at 1092
+level 5 0->1 at 1102
+level 6 0->1 at 1102
+running 5 at 1102
+workload 2, scheduler 3, switch cost 20 units
+job  pid nice  kind arrive first  done  turn   cpu    ovh   resp  rmax
+  0    5    0 batch      0     0  1082  1082   300   7.00   0.00     0
+CSV,job,0,0,1,0,0,1082,1082,30000,700,1,0,0
+  1    6  level 4 1->0 at 1114
+running 4 at 1114
+  0 batch      0    10  1080  1080   300   7.20  10.00    10
+CSV,job,1,0,1,0,10,1080,1080,30000,720,1,10,10
+  2    7    0 batch      0    20  1016  1016   300   6.60  20.00    20
+CSV,job,2,0,1,0,20,1016,1016,30000,660,1,20,20
+  3    8    0 inter      7    30   600   593    30   6.00   7.13    23
+CSV,job,3,0,0,7,30,600,593,3000,600,30,214,23
+  4    9    0 inter     19    3running 4 at 1129
+2   597   578    40   4.00   9.75    22
+CSV,job,4,0,0,19,32,597,578,4000,400,20,195,22
+  5   10    0 inter     31    35   752   721    20   4.00  12.20    33
+CSV,job,5,0,0,31,35,752,721,2000,400,20,244,33
+turnaround (mean, batch jobs): 1059.33 ticks
+response (mean, all CPU bursts): 9.35 ticks, worst 33
+fairness (nice-weighted Jain): 0.997 over ticks 0-1016
+switch overhead:running 4 at 1144
+ 3.21% of busy time; total 1082 ticks, idle 0, other 0
+CSV,summary,2,3,20,105933,935,33,997,321,1082,0
+running 3 at 1148
+Logging Stopped
+$ 
